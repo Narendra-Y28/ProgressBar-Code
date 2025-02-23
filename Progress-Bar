@@ -1,0 +1,44 @@
+import "./styles.css";
+import "react";
+import { useState, useEffect } from "react";
+export const ProgressBar = ({ value }) => {
+  const [animatedValue, setAnimatedValue] = useState(0);
+  useEffect(() => {
+    setTimeout(() => {
+      setAnimatedValue(value);
+    }, 200);
+  });
+  return (
+    <div
+      style={{
+        border: "1px solid black",
+        borderRadius: "10px",
+        overflow: "hidden",
+        margin: "10px",
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: "green",
+          transform: `translateX(${animatedValue - 100}%)`,
+          transition: "0.5s ease-in",
+          textAlign: "right",
+        }}
+      >
+        {value}%
+      </div>
+    </div>
+  );
+};
+
+export default function App() {
+  const values = [5, 10, 20, 40, 50, 70, 100];
+  return (
+    <div className="App">
+      <h1>Progress Bar</h1>
+      {values
+        ? values.map((vals, index) => <ProgressBar value={vals} />)
+        : "Wait its loading"}
+    </div>
+  );
+}
